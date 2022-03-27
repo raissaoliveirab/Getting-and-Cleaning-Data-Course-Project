@@ -32,6 +32,7 @@ x_train <- read.table("X_train.txt", col.names = features$feature) # read Txt fi
 
 y_train <- read.table("y_train.txt", col.names = 'label')
 
+library(dplyr) 
 
 # merge datas sets:
 
@@ -45,12 +46,23 @@ join_subject <- full_join(subject_train, subject_test) # merge data sets list
 
 names(join_subject)[1] <- 'subject' # rename data frame column name
 
-values_end <- cbind.data.frame(join_subject, join_values) # merge data frame columns 
+values_ <- cbind.data.frame(join_subject, join_values) # merge data frame columns 
+
+####
+
+acc <- factor(join_values$label,
+              labels = activity_labels$activity) # associate labels in data frame with its activity name
+
+f<- cbind.data.frame(acc, join_values) # merge acc with data frame
+
+values <- cbind.data.frame(join_subject, f) # merge data frames columns
+
+tidy <- values %>% select(contains("subject"),contains("label"), contains("acc"),contains("mean"),contains("std")) # select columns that contains theses strings
+
+tidy %>% group_by(subject, acc) %>% summarise(mean= mean(tBodyAcc.mean...X))
+
+average_ <- tidy %>% group_by(subject, acc) %>% summarise(across(everything(), mean)) # grouped and apply mean to everything columns   
+# across : apply the same transformation to multiple columns and everything : all columns
 
 
-acc <- factor(data_set$type,
-               labels = c("toy", "food", "electronics", "drinks"))
-
-library(tidyr)
-
-
+write.table(average_, "Tidy_data.txt", sep="\t")
