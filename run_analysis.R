@@ -1,3 +1,5 @@
+#Brenda Raíssa de Oliveira
+
 setwd("./UCI HAR Dataset/") # changes the current directory as a working directory
 
 features <- as.data.frame(read.delim2("features.txt", header= FALSE, sep = " ")) # read TXT file using "space" as sep and trasnform in data frame
