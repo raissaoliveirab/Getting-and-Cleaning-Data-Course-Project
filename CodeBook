@@ -1,0 +1,38 @@
+Functions and more annotations are in Run_analysis.R
+
+Objects and transformations descriptions: 
+features <- Read features.txt, tramsform in data frame and rename columns 1 to "n" and 2 to "feature"
+activity_labels <- Read activity_labels.txt, tramsform in data frame and rename columns 1 to "code" and 2 to "activity"
+subject_test<- Read subject_test.txt' using "space" as sep and trasnform in data frame
+subject_train <-  Read subject_test.txt' using "space" as sep and trasnform in data frame
+x_test <- read Txt file "X_test.txt" as table using column feature of features object as column name
+y_test<- read y_test.txt using "label" as colname
+x_train<- read Txt file "X_train.txt" as table using column feature of features object as column name
+y_train<- read Y_train.txt using "label" as colname
+# merge datas sets:
+
+values_train <-  merge:  y_train, x_train data frame columns 
+
+values_test <-  merge : y_test, x_test data frame columns 
+
+join_values<- merge data sets: values_train, values_test 
+
+join_subject <-  merge data sets: subject_train, subject_test 
+
+ rename data frame join_subject column name 1 to 'subject'
+
+values_ <- merge data frame: join_subject, join_values columns 
+
+acc <- associate labels in data frame with its activity name
+
+f<- merge acc with data frame join_values)
+
+values <- merge data frames join_subject and f columns
+
+tidy <- select columns that contains theses strings: subject, label, acc, mean, std and create new data frame
+
+average_ <-  grouped datas by subject and acc and apply mean to everything columns creating a new data frame
+
+write.table(average_, "Tidy_data.txt", sep="\t")
+
+Functions and more annotations are in Run_analysis.R
