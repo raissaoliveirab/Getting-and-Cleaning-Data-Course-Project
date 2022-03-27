@@ -40,9 +40,9 @@ values_train <- cbind.data.frame(y_train, x_train) # merge data frame columns
 
 values_test <- cbind.data.frame(y_test, x_test) # merge data frame columns 
 
-join_values<- full_join(values_train, values_test) # merge data sets list 
+join_values<- full_join(values_train, values_test) # merge data sets 
 
-join_subject <- full_join(subject_train, subject_test) # merge data sets list 
+join_subject <- full_join(subject_train, subject_test) # merge data sets 
 
 names(join_subject)[1] <- 'subject' # rename data frame column name
 
@@ -58,8 +58,6 @@ f<- cbind.data.frame(acc, join_values) # merge acc with data frame
 values <- cbind.data.frame(join_subject, f) # merge data frames columns
 
 tidy <- values %>% select(contains("subject"),contains("label"), contains("acc"),contains("mean"),contains("std")) # select columns that contains theses strings
-
-tidy %>% group_by(subject, acc) %>% summarise(mean= mean(tBodyAcc.mean...X))
 
 average_ <- tidy %>% group_by(subject, acc) %>% summarise(across(everything(), mean)) # grouped and apply mean to everything columns   
 # across : apply the same transformation to multiple columns and everything : all columns
